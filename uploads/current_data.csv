@@ -1,0 +1,11 @@
+Department,Vendor,Estimated Cost,Final Cost,State,Over_Budget,Vendor_Repeat,Risk Flag,Risk_Color
+Health,Acme Corp,100000,160000,Maharashtra,True,True,Vendor Repeat,table-warning
+Education,Zenith Ltd,200000,190000,Delhi,False,False,OK,table-success
+Transport,Acme Corp,150000,250000,Karnataka,True,True,Vendor Repeat,table-warning
+Defense,Acme Corp,300000,450000,Rajasthan,False,True,Vendor Repeat,table-warning
+Health,Zenith Ltd,120000,110000,Maharashtra,False,False,OK,table-success
+Transport,QuickBuild Inc,220000,330000,Karnataka,False,False,OK,table-success
+Defense,Zenith Ltd,180000,170000,Uttar Pradesh,False,False,OK,table-success
+Education,QuickBuild Inc,140000,145000,Delhi,False,False,OK,table-success
+Health,Acme Corp,110000,180000,Tamil Nadu,True,True,Vendor Repeat,table-warning
+Transport,Acme Corp,190000,290000,Karnataka,True,True,Vendor Repeat,table-warning

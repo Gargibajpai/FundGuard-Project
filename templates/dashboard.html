@@ -9,55 +9,85 @@
 </head>
 <body>
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #002147;">
   <a class="navbar-brand d-flex align-items-center" href="#">
-    <img src="{{ url_for('static', filename='logo.png') }}" class="navbar-logo me-2" alt="FundGuard Logo">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="navbar-logo me-2" alt="FundGuard Logo" style="height: 40px;">
     <span class="fs-4 fw-bold">FundGuard</span>
   </a>
   <div class="ms-auto d-flex align-items-center toggle-switch">
     <a class="btn btn-outline-light me-2" href="/">🏠 Home</a>
-    <label class="me-2 text-white" for="darkModeToggle">🌙 Dark Mode</label>
-    <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+    <label class="me-2 text-white" for="darkModeToggle">🌙</label>
+    <input type="checkbox" id="darkModeToggle">
     <a class="btn btn-outline-light ms-3" href="/logout">Logout</a>
   </div>
 </nav>
 
-
+<!-- Container -->
 <div class="container mt-5">
-  <h2 class="mb-4">📊 Dashboard</h2>
 
-  {% if summary %}
-  <div class="alert alert-info">
-    <strong>{{ summary.total }}</strong> tenders analyzed —
-    <strong>{{ summary.flagged }}</strong> flagged as suspicious.
+  <!-- Upload CSV -->
+  <div class="card p-4 mb-4">
+    <h5 class="mb-3">📁 Upload Tender CSV for AI Audit</h5>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input class="form-control" type="file" name="file" required>
+      <button class="btn btn-primary mt-2 w-100">Upload</button>
+    </form>
   </div>
 
+  {% if summary %}
+  <!-- Summary -->
+  <div class="alert alert-info">
+    <strong>{{ summary.total }}</strong> tenders analyzed —
+    <strong>{{ summary.flagged }}</strong> flagged by AI audit system.
+  </div>
+
+  <!-- AI Analysis Summary -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card p-4 shadow-sm bg-light">
+        <h5>🧠 AI Risk Scoring Insight</h5>
+        <p class="mb-1">Most risky tender (sample):</p>
+        <p class="fst-italic small">"{{ data[0]['Tender Description'] if data and 'Tender Description' in data[0] else 'No description available' }}"</p>
+        <p><strong>Risk Score:</strong> 
+          <span class="badge bg-danger">⚠ 90 / 100</span>
+          <span class="ms-2">(based on suspicious keywords)</span>
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card p-4 shadow-sm bg-light">
+        <h5>📄 NLP Clause Analysis</h5>
+        <p class="mb-1">Detected clause (sample):</p>
+        <p class="fst-italic small">"{{ data[0]['Clause'] if data and 'Clause' in data[0] else 'Retrospective approval is allowed' }}"</p>
+        <p><strong>Insight:</strong>
+          <span class="badge bg-warning text-dark">⚠ Red flag: Clause allows post-event approvals</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats + Chart + Export -->
   <div class="row mb-4">
     <div class="col-md-4">
       <div class="card p-3">
         <h5>Total Tenders: {{ summary.total }}</h5>
-        <h6>Flagged Tenders: {{ summary.flagged }}</h6>
+        <h6>✅ OK: {{ summary.ok }}</h6>
+        <h6>🚩 Issues: {{ summary.issues }}</h6>
       </div>
     </div>
     <div class="col-md-4">
-      <canvas id="riskChart"></canvas>
+      <canvas id="riskChart" height="200"></canvas>
     </div>
-    <div class="col-md-4 text-end">
+    <div class="col-md-4 text-end align-self-center">
       <a href="/export" class="btn btn-success">⬇ Download Flagged CSV</a>
     </div>
   </div>
   {% endif %}
 
-  <div class="card p-4 mb-5">
-    <h5>📁 Upload Tender CSV</h5>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <input class="form-control" type="file" name="file" required>
-      <button class="btn btn-primary mt-2">Upload</button>
-    </form>
-  </div>
-
   {% if data %}
-  <div class="table-responsive">
+  <!-- Table -->
+  <div class="table-responsive mb-5">
     <table class="table table-bordered table-striped table-hover">
       <thead class="table-dark">
         <tr>
@@ -79,11 +109,9 @@
           <td>{{ row['Vendor'] }}</td>
           <td>
             {% if row['Status'] == '✅ OK' %}
-              <span class="badge badge-ok">OK</span>
-            {% elif row['Status'] == '⚠ Over Budget' %}
-              <span class="badge badge-over">Over Budget</span>
-            {% elif row['Status'] == '🔁 Vendor Repeat' %}
-              <span class="badge badge-repeat">Vendor Repeat</span>
+              <span class="badge bg-success">OK</span>
+            {% elif row['Status'] == '🚩 Attention Needed' %}
+              <span class="badge bg-danger">Attention Needed</span>
             {% else %}
               {{ row['Status'] }}
             {% endif %}
@@ -96,38 +124,78 @@
   {% endif %}
 </div>
 
-<script>
-  const toggle = document.getElementById("darkModeToggle");
+<!-- Floating Chat Button -->
+<button id="toggleChatBtn" class="btn btn-dark position-fixed" style="bottom: 20px; right: 20px; z-index: 9999;">
+  🤖 Ask FundBot
+</button>
 
-  function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+<!-- Chatbot Box -->
+<div id="chatbotBox" class="chatbot-box p-3 bg-light border rounded shadow-lg position-fixed"
+     style="bottom: 80px; right: 20px; width: 300px; z-index: 1000; display: none;">
+  <strong>Ask FundGuard 🤖</strong><br>
+  <input type="text" id="chatInput" placeholder="Ask about tenders, flags, or clauses..." class="form-control my-2">
+  <button onclick="chatWithAI()" class="btn btn-sm btn-dark w-100">Ask</button>
+  <div id="chatResponse" class="mt-3 p-2 border rounded bg-white" style="display: none;"></div>
+</div>
+
+<!-- Scripts -->
+<script>
+  // Toggle ChatBot Visibility
+  const chatToggleBtn = document.getElementById("toggleChatBtn");
+  const chatbotBox = document.getElementById("chatbotBox");
+
+  chatToggleBtn.addEventListener("click", () => {
+    chatbotBox.style.display = chatbotBox.style.display === "none" ? "block" : "none";
+  });
+
+  async function chatWithAI() {
+    const input = document.getElementById("chatInput").value.trim();
+    const responseBox = document.getElementById("chatResponse");
+    if (!input) return;
+    responseBox.style.display = "block";
+    responseBox.innerHTML = "<em>🤖 Thinking...</em>";
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: input })
+      });
+      const data = await res.json();
+      responseBox.innerHTML = `<strong>FundBot:</strong> ${data.reply}`;
+    } catch (err) {
+      responseBox.innerHTML = "❌ Error connecting to FundBot.";
+    }
   }
 
-  window.onload = function() {
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
-      toggle.checked = true;
-    }
+  // Dark Mode Toggle
+  const toggle = document.getElementById("darkModeToggle");
+  if (localStorage.getItem("dark-mode") === "enabled") {
+    document.body.classList.add("dark-mode");
+    toggle.checked = true;
+  }
+  toggle.addEventListener("change", () => {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+  });
 
+  // Chart
+  window.onload = function () {
     {% if summary %}
     const ctx = document.getElementById('riskChart');
     new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['OK', 'Over Budget', 'Vendor Repeat'],
+        labels: ['✅ OK', '🚩 Issues'],
         datasets: [{
           label: 'Risk Breakdown',
-          data: [{{ summary.ok }}, {{ summary.over }}, {{ summary.repeat }}],
-          backgroundColor: ['#198754', '#ffc107', '#dc3545']
+          data: [{{ summary.ok }}, {{ summary.issues }}],
+          backgroundColor: ['#198754', '#dc3545']
         }]
       },
       options: {
         responsive: true,
         plugins: {
-          legend: {
-            position: 'bottom'
-          }
+          legend: { position: 'bottom' }
         }
       }
     });

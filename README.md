@@ -1,16 +1,18 @@
+ HEAD
 # FundGuard – Government Tender Risk Analyzer
 A visually appealing web app to detect corruption in government tenders.
 A data-driven platform that detects corruption patterns in government tender allocations using CSV data and visual analytics.
 
-# PROBLEM STATEMENT
-Government tenders often involve large sums of public money, and inefficiencies or fraudulent practices can go unnoticed. There’s a need for an accessible tool that flags suspicious tenders based on predefined criteria, helping authorities and watchdogs identify potential red flags in public procurement.
+# 🚨 FundGuard – Government Tender Risk Analyzer
 
-#  APPROACH & SOLUTION
-FundGuard is a Flask-based web application that allows users to upload CSV files containing government tender data. It analyzes the data using Pandas and flags potentially suspicious entries based on:
--Excessive final cost (Final Cost > 1.5 × Estimated Cost)
--Frequent vendor wins (same vendor wins more than 3 tenders)
--The app offers an interactive dashboard and risk report to support transparency and audit-readiness.
+**FundGuard** is an AI-assisted web application that analyzes government tender data for red flags such as over-budget spending, vendor repetition, and suspicious clauses. It ensures transparency and helps identify potential fraud in public procurement.
+>>>>>>> aea5609 (Updated FundGuard project with new features and fixes)
 
+---
+
+## 🔍 Key Features
+
+ HEAD
 #  FEATURES 
   - Upload and analyze CSV files containing tender data
 - Automatic risk flagging for:
@@ -78,4 +80,142 @@ Here’s a preview of the FundGuard dashboard in action:
 ![image](https://github.com/user-attachments/assets/b5c53211-7116-45c9-824c-e3eac1710a39)
 
 ![image](https://github.com/user-attachments/assets/192c27f9-c6df-482f-b363-b71c4375d022)
+=======
+- 📁 **CSV Upload**: Upload tender files for instant audit  
+- 🧠 **Risk Scoring Engine**: AI-based fraud risk score (0–100)  
+- 📄 **NLP Clause Analyzer**: Detect unfair or suspicious clauses  
+- 💬 **FundBot Chatbot**: Ask questions on tenders or fraud flags  
+- 📊 **Interactive Dashboard**: View flagged entries and stats  
+- 🌙 **Dark Mode**: Persistent theme switcher  
+- ⬇️ **Export**: Download flagged data as CSV  
+- 🔐 **Secure Login**: Session-based access control  
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer        | Technology              |
+|--------------|-------------------------|
+| Frontend     | HTML, CSS, Bootstrap 5  |
+| Backend      | Python, Flask           |
+| Visualization| Chart.js                |
+| AI/NLP Logic | Pandas, OpenAI API      |
+| Chatbot      | Vanilla JS + Flask API  |
+
+---
+
+## 📦 Project Structure
+
+```
+
+FundGuard/
+│
+├── static/
+│   ├── style.css           # Theme & layout styling
+│   ├── logo.png            # Navbar/login logo
+│   └── illustration.png    # Landing hero image
+│
+├── templates/
+│   ├── home.html           # Landing page
+│   ├── login.html          # Login + chatbot
+│   └── dashboard.html      # Analysis dashboard
+│
+├── uploads/                # Uploaded/flagged CSVs
+│
+├── app.py                  # Flask backend
+├── requirements.txt        # Python dependencies
+└── README.md               # Project overview
+
+````
+
+---
+
+## 🚀 How to Run Locally
+
+```bash
+git clone https://github.com/<your-username>/FundGuard.git
+cd FundGuard
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+python app.py
+````
+
+🔗 Open in browser: `http://127.0.0.1:5000/`
+
+---
+
+## 📊 Sample CSV Format
+
+```
+Tender ID,Department,Estimated Cost,Final Cost,Vendor
+T1234,Health,1000000,1800000,ABC Corp
+T5678,Transport,800000,750000,XYZ Ltd
+T9101,Education,600000,1200000,ABC Corp
+```
+
+✅ AI will auto-flag:
+
+* ⚠ Over Budget (≥ 1.5× estimate)
+* 🔁 Vendor Repeat (more than 3 entries)
+* 📌 Duplicate Invoices
+* 💬 Suspicious Descriptions
+* 📅 Weekend Approvals
+
+---
+
+## 🧠 FundBot (Chat Assistant)
+
+A chatbot is embedded on the login page. Ask:
+
+* “How does FundGuard detect fraud?”
+* “What does risk score 75 mean?”
+* “What flags are shown for tender repeats?”
+
+Works offline with logic-based fallback if OpenAI is unavailable.
+
+---
+
+## 🔐 Default Login Credentials
+
+```bash
+Username: admin
+Password: admin123
+```
+
+(You can change these in `app.py`)
+
+---
+
+## 📤 Export Results
+
+After uploading and auditing, go to the dashboard → Click ⬇ Download CSV to export all flagged tender rows.
+
+---
+
+## ✨ Future Scope
+
+* 🔐 Multi-user login with role-based access
+* 📚 NLP-based full tender clause auditing
+* 🧠 Fine-tuned ML model for fraud patterns
+* ☁️ Cloud CSV storage with analytics
+
+---
+
+## 👥 Team Members
+* **Gargi Bajpai**
+  [GitHub →](https://github.com/Gargibajpai)
+
+* **Ashmita Goyal**
+  [GitHub →](https://github.com/ashmita1206)
+
+* **Lipika Tomar**
+  [GitHub →](https://github.com/LipikaTomar)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+aea5609 (Updated FundGuard project with new features and fixes)
 

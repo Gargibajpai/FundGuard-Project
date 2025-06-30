@@ -1,11 +1,7 @@
-Department,Vendor,Estimated Cost,Final Cost,State,Status
-Health,Acme Corp,100000,160000,Maharashtra,🔁 Vendor Repeat
-Education,Zenith Ltd,200000,190000,Delhi,✅ OK
-Transport,Acme Corp,150000,250000,Karnataka,🔁 Vendor Repeat
-Defense,Acme Corp,300000,450000,Rajasthan,🔁 Vendor Repeat
-Health,Zenith Ltd,120000,110000,Maharashtra,✅ OK
-Transport,QuickBuild Inc,220000,330000,Karnataka,✅ OK
-Defense,Zenith Ltd,180000,170000,Uttar Pradesh,✅ OK
-Education,QuickBuild Inc,140000,145000,Delhi,✅ OK
-Health,Acme Corp,110000,180000,Tamil Nadu,🔁 Vendor Repeat
-Transport,Acme Corp,190000,290000,Karnataka,🔁 Vendor Repeat
+Tender ID,Department,Estimated Cost,Final Cost,Vendor,Status,Issues
+T001,Health,100000,95000,ABC Corp,✅ OK,
+T002,Education,200000,310000,XYZ Ltd,🚩 Attention Needed,⚠ Over Budget
+T003,Transport,150000,140000,ABC Corp,✅ OK,
+T004,Health,120000,190000,ABC Corp,🚩 Attention Needed,⚠ Over Budget
+T005,IT,80000,85000,123 Supplies,✅ OK,
+T006,Education,200000,210000,XYZ Ltd,✅ OK,

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Welcome to FundGuard</title>
+  <title>Upload Tender File | FundGuard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -11,50 +11,21 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
   <a class="navbar-brand d-flex align-items-center" href="#">
-    <img src="{{ url_for('static', filename='logo.png') }}" class="logo me-2" alt="FundGuard Logo" style="height:40px;">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="me-2" alt="FundGuard Logo" style="height:40px;">
     <span class="fw-bold">FundGuard</span>
   </a>
-  <div class="ms-auto d-flex align-items-center">
-    <label for="darkModeToggle" class="me-2 mb-0 text-white">🌙</label>
-    <input type="checkbox" id="darkModeToggle">
-  </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="text-center py-5 hero bg-light">
-  <h1 class="display-4 fw-bold text-primary">FUNDGUARD</h1>
-  <p class="lead">India’s Tender Integrity Monitor</p>
-  <p class="mb-4">Upload. Analyze. Act. Bringing transparency to public procurement.</p>
-  <a href="{{ url_for('login') }}" class="btn btn-warning btn-lg">🚀 Proceed to Login</a>
-</section>
-
-<!-- AI Features Summary (without interactivity) -->
-<section class="py-5 bg-white">
-  <div class="container">
-    <h2 class="text-center mb-4 text-primary">🤖 AI-Powered Features</h2>
-    <p class="text-center mb-5">Smart tools for fast and fair tender scrutiny — now automated after upload.</p>
-    <div class="row">
-
-      <!-- Risk Score Summary -->
-      <div class="col-md-6 mb-4">
-        <div class="p-4 border rounded shadow-sm bg-light h-100">
-          <h5>🧠 Risk Scoring Engine</h5>
-          <p>Get an automatic fraud risk score after uploading your tender data.</p>
-        </div>
-      </div>
-
-      <!-- NLP Analyzer Summary -->
-      <div class="col-md-6 mb-4">
-        <div class="p-4 border rounded shadow-sm bg-light h-100">
-          <h5>📄 NLP Clause Analyzer</h5>
-          <p>System detects suspicious clauses from the uploaded file without manual input.</p>
-        </div>
-      </div>
-
-    </div>
+<!-- Upload Section -->
+<div class="container mt-5">
+  <div class="card p-4">
+    <h3 class="text-center text-primary mb-4">📁 Upload Tender File</h3>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" class="form-control mb-3" required>
+      <button class="btn btn-primary w-100">🚀 Submit & Analyze</button>
+    </form>
   </div>
-</section>
-
+</div>
 <!-- Floating Chat Button -->
 <button id="toggleChatBtn" class="btn btn-dark position-fixed" style="bottom: 20px; right: 20px; z-index: 9999;">
   🤖 Ask FundBot
@@ -68,21 +39,8 @@
   <button onclick="chatWithAI()" class="btn btn-sm btn-dark w-100">Ask</button>
   <div id="chatResponse" class="mt-3 p-2 border rounded bg-white" style="display: none;"></div>
 </div>
-
-<!-- Scripts -->
 <script>
-  // Dark Mode Toggle
-  const toggle = document.getElementById("darkModeToggle");
-  if (localStorage.getItem("dark-mode") === "enabled") {
-    document.body.classList.add("dark-mode");
-    toggle.checked = true;
-  }
-  toggle.addEventListener("change", () => {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
-  });
-
-  // Chatbot Toggle
+  // Toggle ChatBot Visibility
   const chatToggleBtn = document.getElementById("toggleChatBtn");
   const chatbotBox = document.getElementById("chatbotBox");
 

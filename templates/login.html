@@ -8,49 +8,182 @@
   <style>
     body {
       background-color: #f4f6fa;
+      transition: background-color 0.3s, color 0.3s;
     }
+
     .card {
       border-radius: 1rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
     }
+
     .card-header {
       background-color: #002147;
       color: white;
       font-weight: bold;
       text-align: center;
     }
+
     .logo-login {
-      height: 120px;
+      height: 100px;
       width: auto;
       display: block;
       margin: 1.5rem auto;
     }
+
+    .chatbot-box {
+      margin-top: 2rem;
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    #chatResponse {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background-color: #f1f1f1;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .card {
+      background-color: #1f1f1f;
+      color: #f8f9fa;
+    }
+
+    body.dark-mode .card-header {
+      background-color: #0b0b2b;
+    }
+
+    body.dark-mode .chatbot-box {
+      background-color: #1f1f1f;
+      color: #e0e0e0;
+      border: 1px solid #444;
+    }
+
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+
+    input[type="text"], input[type="password"] {
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode input, body.dark-mode button {
+      background-color: #2e2e2e;
+      color: #f8f9fa;
+      border: 1px solid #666;
+    }
   </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">Welcome to FundGuard</div>
-          <div class="card-body">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="FundGuard Logo" class="logo-login">
-            <form method="POST" action="/login">
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" required>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" required>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Proceed to Dashboard</button>
-            </form>
-          </div>
+
+<!-- Dark Mode Toggle -->
+<div class="container">
+  <div class="toggle-switch">
+    <label for="darkModeToggle" class="fw-bold">🌙 Dark Mode</label>
+    <input type="checkbox" id="darkModeToggle">
+  </div>
+</div>
+
+<!-- Login Card -->
+<div class="container mt-2">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Welcome to FundGuard</div>
+        <div class="card-body">
+          <img src="{{ url_for('static', filename='logo.png') }}" alt="FundGuard Logo" class="logo-login">
+
+          {% if error %}
+          <div class="alert alert-danger text-center">{{ error }}</div>
+          {% endif %}
+
+          <form method="POST" action="{{ url_for('login') }}">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">🚀 Proceed to Dashboard</button>
+          </form>
         </div>
-        <p class="text-center mt-3 text-muted">Use test credentials to log in</p>
       </div>
+
+      <p class="text-center mt-3 text-muted">Use test credentials: <strong>admin / admin123</strong></p>
+
+      <!-- Floating Chat Button -->
+<button id="toggleChatBtn" class="btn btn-dark position-fixed" style="bottom: 20px; right: 20px; z-index: 9999;">
+  🤖 Ask FundBot
+</button>
+
+<!-- Chatbot Box -->
+<div id="chatbotBox" class="chatbot-box p-3 bg-light border rounded shadow-lg position-fixed"
+     style="bottom: 80px; right: 20px; width: 300px; z-index: 1000; display: none;">
+  <strong>Ask FundGuard 🤖</strong><br>
+  <input type="text" id="chatInput" placeholder="Ask about tenders, flags, or clauses..." class="form-control my-2">
+  <button onclick="chatWithAI()" class="btn btn-sm btn-dark w-100">Ask</button>
+  <div id="chatResponse" class="mt-3 p-2 border rounded bg-white" style="display: none;"></div>
+</div>
+
     </div>
   </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  // Dark Mode Toggle
+  const toggle = document.getElementById("darkModeToggle");
+  if (localStorage.getItem("dark-mode") === "enabled") {
+    document.body.classList.add("dark-mode");
+    toggle.checked = true;
+  }
+  toggle.addEventListener("change", () => {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+  });
+
+  // Toggle ChatBot Visibility
+  const chatToggleBtn = document.getElementById("toggleChatBtn");
+  const chatbotBox = document.getElementById("chatbotBox");
+
+  chatToggleBtn.addEventListener("click", () => {
+    chatbotBox.style.display = chatbotBox.style.display === "none" ? "block" : "none";
+  });
+
+  // Chatbot Function
+  async function chatWithAI() {
+    const input = document.getElementById("chatInput").value.trim();
+    const responseBox = document.getElementById("chatResponse");
+    if (!input) return;
+    responseBox.style.display = "block";
+    responseBox.innerHTML = "<em>🤖 Thinking...</em>";
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: input })
+      });
+      const data = await res.json();
+      responseBox.innerHTML = `<strong>FundBot:</strong> ${data.reply}`;
+    } catch (err) {
+      responseBox.innerHTML = "❌ Error connecting to FundBot.";
+    }
+  }
+</script>
+
 </body>
 </html>

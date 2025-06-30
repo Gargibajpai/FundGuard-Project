@@ -5,3 +5,4 @@ openpyxl
 chart.js
 gunicorn
 python-dotenv
+openai

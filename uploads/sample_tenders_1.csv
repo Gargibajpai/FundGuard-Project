@@ -1,0 +1,11 @@
+Tender ID,Department,Estimated Cost,Final Cost,Vendor,State
+T001,Public Works,100000,180000,Vendor A,Uttar Pradesh
+T002,Education,150000,155000,Vendor B,Delhi
+T003,Transport,120000,119000,Vendor C,Haryana
+T004,Health,90000,145000,Vendor A,Uttar Pradesh
+T005,Public Works,110000,180000,Vendor D,Bihar
+T006,Health,85000,130000,Vendor A,Uttar Pradesh
+T007,Education,100000,95000,Vendor E,Delhi
+T008,Transport,95000,100000,Vendor A,Uttar Pradesh
+T009,Energy,105000,104000,Vendor F,Gujarat
+T010,Energy,125000,200000,Vendor G,Gujarat

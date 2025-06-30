@@ -215,6 +215,5 @@ After uploading and auditing, go to the dashboard → Click ⬇ Download CSV to 
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.
-aea5609 (Updated FundGuard project with new features and fixes)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 

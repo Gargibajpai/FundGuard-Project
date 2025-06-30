@@ -1,7 +1,11 @@
-Tender ID,Department,Estimated Cost,Final Cost,Vendor,Status,Issues
-T001,Health,100000,95000,ABC Corp,✅ OK,
-T002,Education,200000,310000,XYZ Ltd,🚩 Attention Needed,⚠ Over Budget
-T003,Transport,150000,140000,ABC Corp,✅ OK,
-T004,Health,120000,190000,ABC Corp,🚩 Attention Needed,⚠ Over Budget
-T005,IT,80000,85000,123 Supplies,✅ OK,
-T006,Education,200000,210000,XYZ Ltd,✅ OK,
+Tender ID,Department,Estimated Cost,Final Cost,Vendor,State,Status,Issues
+T001,Public Works,100000,180000,Vendor A,Uttar Pradesh,🚩 Attention Needed,⚠ Over Budget | 🔁 Vendor Repeat
+T002,Education,150000,155000,Vendor B,Delhi,✅ OK,
+T003,Transport,120000,119000,Vendor C,Haryana,✅ OK,
+T004,Health,90000,145000,Vendor A,Uttar Pradesh,🚩 Attention Needed,⚠ Over Budget | 🔁 Vendor Repeat
+T005,Public Works,110000,180000,Vendor D,Bihar,🚩 Attention Needed,⚠ Over Budget
+T006,Health,85000,130000,Vendor A,Uttar Pradesh,🚩 Attention Needed,⚠ Over Budget | 🔁 Vendor Repeat
+T007,Education,100000,95000,Vendor E,Delhi,✅ OK,
+T008,Transport,95000,100000,Vendor A,Uttar Pradesh,🚩 Attention Needed,🔁 Vendor Repeat
+T009,Energy,105000,104000,Vendor F,Gujarat,✅ OK,
+T010,Energy,125000,200000,Vendor G,Gujarat,🚩 Attention Needed,⚠ Over Budget

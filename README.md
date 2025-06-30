@@ -1,4 +1,4 @@
- HEAD
+
 # FundGuard – Government Tender Risk Analyzer
 A visually appealing web app to detect corruption in government tenders.
 A data-driven platform that detects corruption patterns in government tender allocations using CSV data and visual analytics.
@@ -6,9 +6,7 @@ A data-driven platform that detects corruption patterns in government tender all
 # 🚨 FundGuard – Government Tender Risk Analyzer
 
 **FundGuard** is an AI-assisted web application that analyzes government tender data for red flags such as over-budget spending, vendor repetition, and suspicious clauses. It ensures transparency and helps identify potential fraud in public procurement.
->>>>>>> aea5609 (Updated FundGuard project with new features and fixes)
 
----
 
 ## 🔍 Key Features
 
@@ -73,14 +71,15 @@ Password: admin123
 ## 📸 Demo Screenshot
 
 Here’s a preview of the FundGuard dashboard in action:
-![image](https://github.com/user-attachments/assets/e5a363d7-baf9-4098-b01a-b7bb033cd3af)
+![image](https://github.com/user-attachments/assets/aa721db2-ce6b-4a6f-825f-d663e18e40e3)
+![image](https://github.com/user-attachments/assets/2594b9ab-0bec-4b59-8b5e-25f336158c87)
+![image](https://github.com/user-attachments/assets/98ee8c16-8d5e-4d42-ba4f-6500b0976759)
+![image](https://github.com/user-attachments/assets/412b2fb3-5fd9-4ee9-ae0d-b0efecfa91b5)
+![image](https://github.com/user-attachments/assets/ba916147-982e-4c4f-afc5-cfcd7c0e7a87)
 
-![image](https://github.com/user-attachments/assets/01988e6d-58c2-4723-aec5-38e7a37610b0)
-
-![image](https://github.com/user-attachments/assets/b5c53211-7116-45c9-824c-e3eac1710a39)
 
 ![image](https://github.com/user-attachments/assets/192c27f9-c6df-482f-b363-b71c4375d022)
-=======
+
 - 📁 **CSV Upload**: Upload tender files for instant audit  
 - 🧠 **Risk Scoring Engine**: AI-based fraud risk score (0–100)  
 - 📄 **NLP Clause Analyzer**: Detect unfair or suspicious clauses  
